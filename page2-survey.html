@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Survey — Dayana ✨</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/page2-survey.css" />
+</head>
+<body>
+
+  <!-- Background layers -->
+  <canvas id="starCanvas"></canvas>
+  <div id="dovesLayer"></div>
+  <div id="heartsLayer" class="hearts-layer"></div>
+
+  <!-- Page transition overlay -->
+  <div id="pageTransition"></div>
+
+  <!-- Music modal -->
+  <div id="musicModal">
+    <div class="modal-box">
+      <p class="modal-stars-row">✦ &nbsp; ✧ &nbsp; ✦</p>
+      <h2 class="modal-title">A Little Surprise Awaits</h2>
+      <p class="modal-body">Would you like to play the background music for this surprise?</p>
+      <div class="modal-btns">
+        <button id="btnPlayMusic" class="btn btn-solid">Yes, play it &nbsp;♪</button>
+        <button id="btnSkipMusic" class="btn btn-ghost">No, continue silently</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" preload="auto"></audio>
+
+  <button id="musicToggle" aria-label="Toggle music">♪</button>
+
+  <!-- ══════════════════════════════════════════
+       PAGE 2 — SURVEY CONTENT
+       ══════════════════════════════════════════ -->
+  <main class="survey-wrapper">
+
+    <header class="survey-header">
+      <span class="badge">✦ &nbsp; just for you &nbsp; ✦</span>
+      <h1 class="survey-title">Your Little Survey</h1>
+      <p class="survey-subtitle">Let me know a little more about you 💫</p>
+    </header>
+
+    <!-- CARD (question UI) -->
+    <div class="survey-card" id="surveyCard">
+
+      <!-- Progress -->
+      <div class="progress-area">
+        <span class="progress-label" id="progressLabel">Question 1 of 5</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <!-- Question + Input -->
+      <div class="question-area" id="questionArea">
+        <p class="question-text" id="questionText"></p>
+        <div class="input-area"  id="inputArea"></div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="survey-nav">
+        <button class="btn btn-ghost btn-sm hidden" id="btnPrev" onclick="Survey.prev()">← Prev</button>
+        <button class="btn btn-solid btn-sm"         id="btnNext" onclick="Survey.next()">Next →</button>
+        <button class="btn btn-glow  btn-sm hidden"  id="btnSubmit" onclick="Survey.submit()">Send it ✦</button>
+      </div>
+    </div>
+
+    <!-- Success (shown after submit) -->
+    <div class="survey-success hidden" id="surveySuccess">
+      <div class="success-star">✦</div>
+      <h2 class="success-title">Beautiful! 💖</h2>
+      <p class="success-msg">Your answers have been received…</p>
+      <p class="success-sub">Taking you to the next surprise in a moment…</p>
+    </div>
+
+  </main>
+
+  <script src="js/shared.js"></script>
+  <script src="js/survey.js"></script>
+  <script>
+    bootShared({ hearts: true, heartCount: 4 });
+    Survey.init();
+  </script>
+</body>
+</html>

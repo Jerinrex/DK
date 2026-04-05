@@ -1,0 +1,108 @@
+/* ============================================================
+   page4-video.css — Styles specific to the Final Video page
+   Birthday Surprise · Monic Dayana
+   ============================================================ */
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.video-wrapper {
+  position: relative;
+  z-index: 10;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 52px 20px 88px;
+  text-align: center;
+  gap: 0;
+}
+
+/* ─── BADGE ──────────────────────────────────────────────── */
+.video-badge {
+  margin-bottom: 20px;
+  animation: fadeInUp 0.7s 0.1s ease both;
+}
+
+/* ─── TITLES ─────────────────────────────────────────────── */
+.video-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 6.5vw, 2.8rem);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 12px;
+  animation: fadeInUp 0.7s 0.2s ease both;
+}
+
+.video-subtitle {
+  color: var(--softer);
+  font-size: 0.95rem;
+  margin-bottom: 44px;
+  animation: fadeInUp 0.7s 0.3s ease both;
+}
+
+/* ─── VIDEO PLAYER ───────────────────────────────────────── */
+.video-player-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 46px;
+  border-radius: var(--radius);
+  animation: fadeInUp 0.85s 0.38s ease both;
+}
+
+/* Glow ring behind video */
+.video-glow-ring {
+  position: absolute;
+  inset: -24px;
+  border-radius: calc(var(--radius) + 24px);
+  background: radial-gradient(ellipse at center, rgba(200,185,255,0.06) 0%, transparent 68%);
+  z-index: 0;
+  animation: pulse 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.video-player-wrap video {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  background: rgba(0, 0, 0, 0.55);
+  display: block;
+  box-shadow: 0 0 60px rgba(255,255,255,0.04);
+}
+
+/* Fallback text */
+.video-fallback {
+  color: var(--softer);
+  font-size: 0.92rem;
+  padding: 60px 20px;
+  line-height: 1.75;
+}
+
+.video-fallback code {
+  background: rgba(255,255,255,0.07);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+}
+
+/* ─── FINAL LINE ─────────────────────────────────────────── */
+.final-line {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 4vw, 1.55rem);
+  font-style: italic;
+  color: var(--soft);
+  margin-bottom: 36px;
+  animation: fadeInUp 0.7s 0.5s ease both;
+}
+
+/* ─── REPLAY BUTTON ──────────────────────────────────────── */
+.replay-btn {
+  animation: fadeInUp 0.7s 0.62s ease both;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .video-wrapper { padding: 44px 16px 72px; }
+}

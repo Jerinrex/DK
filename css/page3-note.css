@@ -1,0 +1,101 @@
+/* ============================================================
+   page3-note.css — Styles specific to the Birthday Note page
+   Birthday Surprise · Monic Dayana
+   ============================================================ */
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.note-wrapper {
+  position: relative;
+  z-index: 10;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px 90px;
+  gap: 0;
+}
+
+/* ─── BADGE ──────────────────────────────────────────────── */
+.note-badge {
+  margin-bottom: 44px;
+  animation: fadeInUp 0.7s 0.15s ease both;
+}
+
+/* ─── LETTER CARD ────────────────────────────────────────── */
+.note-card {
+  width: 100%;
+  max-width: 680px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 54px 50px;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow:
+    0 0 100px rgba(255,255,255,0.02),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  text-align: left;
+  animation: fadeInUp 0.85s 0.28s ease both;
+  margin-bottom: 44px;
+}
+
+/* ─── GREETING ───────────────────────────────────────────── */
+.note-greeting {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+
+/* ─── BODY TEXT ──────────────────────────────────────────── */
+.note-body p {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.8vw, 1.18rem);
+  font-weight: 300;
+  line-height: 1.95;
+  color: var(--soft);
+  margin-bottom: 20px;
+}
+
+.note-body p:last-child { margin-bottom: 0; }
+
+/* ─── SIGNATURE ──────────────────────────────────────────── */
+.note-signature {
+  margin-top: 34px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  color: var(--softer);
+  line-height: 1.85;
+}
+
+.note-signature em {
+  font-size: 1.1rem;
+  color: var(--soft);
+}
+
+/* ─── CTA ────────────────────────────────────────────────── */
+.note-cta {
+  animation: fadeInUp 0.7s 0.5s ease both;
+}
+
+.note-cta span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.note-cta:hover span { transform: translateX(5px); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .note-card    { padding: 36px 24px; }
+  .note-wrapper { padding: 48px 16px 80px; }
+}
+
+@media (max-width: 380px) {
+  .note-card { padding: 28px 16px; }
+}

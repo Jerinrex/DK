@@ -1,0 +1,457 @@
+/* ============================================================
+   page4-photo.css — Photo / Memories page
+   Birthday Surprise · Monic Dayana
+   ============================================================ */
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.photo-wrapper {
+  position: relative;
+  z-index: 10;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 20px 96px;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────── */
+.photo-header {
+  text-align: center;
+  margin-bottom: 44px;
+  position: relative;
+  z-index: 20;
+  width: 100%;
+}
+
+.photo-badge {
+  margin-bottom: 16px;
+  animation: fadeInUp 0.7s 0.1s ease both;
+}
+
+.photo-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 5.5vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--white);
+  margin-bottom: 14px;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.12);
+  animation: fadeInUp 0.8s 0.2s ease both;
+}
+
+.photo-subtitle {
+  color: var(--softer);
+  font-size: 0.94rem;
+  animation: fadeInUp 0.7s 0.3s ease both;
+}
+
+/* ─── SLIDESHOW WRAP ─────────────────────────────────────── */
+.slideshow-wrap {
+  width: 100%;
+  max-width: 420px;      /* narrower suits portrait photos */
+  position: relative;
+  z-index: 20;
+  margin-bottom: 48px;
+  animation: fadeInUp 0.9s 0.4s ease both;
+}
+
+/* ─── SLIDE STAGE ────────────────────────────────────────── */
+.slide-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;   /* portrait */
+  max-height: 72dvh;     /* never taller than viewport */
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  box-shadow:
+    0 0 80px rgba(255, 255, 255, 0.04),
+    0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+/* Animated glow ring behind the stage */
+.slide-glow-ring {
+  position: absolute;
+  inset: -32px;
+  border-radius: calc(var(--radius-lg) + 32px);
+  background: radial-gradient(ellipse at center, rgba(200, 185, 255, 0.07) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+/* ─── SLIDE FRAME ────────────────────────────────────────── */
+.slide-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* show full photo, no cropping */
+  object-position: center;
+  display: block;
+  background: #05050f;   /* fills letterbox gaps with bg color */
+}
+
+/* Bottom gradient so caption is readable */
+.slide-overlay-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(5, 5, 15, 0.85) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── SLIDE CAPTION ──────────────────────────────────────── */
+.slide-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 22px;
+  right: 80px;
+  font-family: var(--font-display);
+  font-size: clamp(0.88rem, 2.4vw, 1.08rem);
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  z-index: 3;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* ─── SLIDE COUNTER ──────────────────────────────────────── */
+.slide-counter {
+  position: absolute;
+  bottom: 18px;
+  right: 16px;
+  font-size: 0.70rem;
+  letter-spacing: 0.12em;
+  color: var(--softer);
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.40);
+  padding: 4px 10px;
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ─── SLIDE TRANSITION ANIMATIONS ───────────────────────── */
+.slide-in-next {
+  animation: slideInFromRight 0.5s var(--ease-smooth) both;
+}
+.slide-in-prev {
+  animation: slideInFromLeft 0.5s var(--ease-smooth) both;
+}
+.slide-out-next {
+  animation: slideOutToLeft 0.26s var(--ease-smooth) both;
+}
+.slide-out-prev {
+  animation: slideOutToRight 0.26s var(--ease-smooth) both;
+}
+
+/* Ken Burns subtle zoom on photo entry */
+.slide-in-next .slide-img,
+.slide-in-prev .slide-img {
+  animation: kenBurns 5.5s ease forwards;
+}
+
+@keyframes kenBurns {
+  from { transform: scale(1);    }
+  to   { transform: scale(1.07); }
+}
+
+@keyframes slideInFromRight {
+  from { opacity: 0; transform: translateX(50px) scale(0.97); }
+  to   { opacity: 1; transform: translateX(0)    scale(1);    }
+}
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-50px) scale(0.97); }
+  to   { opacity: 1; transform: translateX(0)     scale(1);    }
+}
+@keyframes slideOutToLeft {
+  from { opacity: 1; transform: translateX(0);     }
+  to   { opacity: 0; transform: translateX(-50px); }
+}
+@keyframes slideOutToRight {
+  from { opacity: 1; transform: translateX(0);    }
+  to   { opacity: 0; transform: translateX(50px); }
+}
+
+/* ─── ARROW BUTTONS ──────────────────────────────────────── */
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.40);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.28s ease;
+}
+
+.slide-prev { left: 14px; }
+.slide-next { right: 14px; }
+
+.slide-arrow:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.42);
+  color: var(--white);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+}
+
+/* ─── FILMSTRIP ──────────────────────────────────────────── */
+.filmstrip {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  justify-content: center;
+}
+
+.filmstrip::-webkit-scrollbar { display: none; }
+
+.thumb {
+  flex: 0 0 62px;
+  height: 46px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.45;
+  transition: all 0.28s ease;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.thumb:hover {
+  opacity: 0.75;
+  transform: translateY(-2px);
+}
+
+.thumb.active {
+  border-color: rgba(255, 255, 255, 0.60);
+  opacity: 1;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.10);
+}
+
+/* ─── POLAROID SCATTER ───────────────────────────────────── */
+.polaroid-scatter {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.polaroid {
+  position: absolute;
+  width: 124px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 6px;
+  padding: 8px 8px 24px;
+  transform: rotate(var(--rot, 0deg));
+  pointer-events: all;
+  cursor: pointer;
+  transition: transform 0.4s var(--ease-bounce), box-shadow 0.4s ease, opacity 0.4s ease;
+  animation: polaroidReveal 0.85s var(--ease-bounce) both;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  opacity: 0.52;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.14) translateY(-8px) !important;
+  opacity: 1;
+  box-shadow:
+    0 20px 56px rgba(0, 0, 0, 0.65),
+    0 0 32px rgba(255, 255, 255, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  z-index: 200;
+}
+
+@keyframes polaroidReveal {
+  from { opacity: 0; transform: rotate(var(--rot, 0deg)) translateY(28px) scale(0.82); }
+  to   { opacity: 0.52; transform: rotate(var(--rot, 0deg)) translateY(0)    scale(1);  }
+}
+
+.polaroid-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.polaroid-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.polaroid:hover .polaroid-photo img { transform: scale(1.09); }
+
+.polaroid-label {
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--softer);
+  margin-top: 8px;
+  letter-spacing: 5px;
+}
+
+/* ─── CTA BUTTON ─────────────────────────────────────────── */
+.photo-cta {
+  position: relative;
+  z-index: 20;
+  animation: fadeInUp 0.7s 0.55s ease both;
+}
+
+.cta-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.photo-cta:hover .cta-arrow { transform: translateX(5px); }
+
+/* ─── LIGHTBOX ───────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.38s ease;
+}
+
+.lightbox.open {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 3, 12, 0.93);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  cursor: pointer;
+}
+
+.lightbox-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 880px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  transform: scale(0.93);
+  transition: transform 0.38s var(--ease-bounce);
+}
+
+.lightbox.open .lightbox-inner {
+  transform: scale(1);
+}
+
+.lightbox-img {
+  width: 100%;
+  max-height: 76dvh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 0 80px rgba(0, 0, 0, 0.75),
+    0 0 40px rgba(255, 255, 255, 0.04);
+  display: block;
+}
+
+.lightbox-caption {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--soft);
+  text-align: center;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -6px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(8px);
+  color: var(--soft);
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.26s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--white);
+  transform: scale(1.1);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .photo-wrapper  { padding: 44px 16px 80px; }
+  .slide-arrow    { width: 36px; height: 36px; font-size: 1rem; }
+  .slide-prev     { left: 8px; }
+  .slide-next     { right: 8px; }
+  .thumb          { flex: 0 0 50px; height: 38px; }
+  .polaroid       { width: 98px; }
+}
+
+@media (max-width: 400px) {
+  /* Hide polaroids on very small screens to avoid clutter */
+  .polaroid-scatter { display: none; }
+}

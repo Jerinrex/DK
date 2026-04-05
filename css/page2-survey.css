@@ -1,0 +1,210 @@
+/* ============================================================
+   page2-survey.css — Styles specific to the Survey page
+   Birthday Surprise · Monic Dayana
+   ============================================================ */
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.survey-wrapper {
+  position: relative;
+  z-index: 10;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px 80px;
+  gap: 0;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────── */
+.survey-header {
+  text-align: center;
+  margin-bottom: 36px;
+  animation: fadeInUp 0.7s 0.1s ease both;
+}
+
+.survey-header .badge { margin-bottom: 14px; }
+
+.survey-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+
+.survey-subtitle {
+  color: var(--softer);
+  font-size: 0.94rem;
+}
+
+/* ─── CARD ───────────────────────────────────────────────── */
+.survey-card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 44px 38px;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow:
+    0 0 80px rgba(255,255,255,0.02),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  animation: fadeInUp 0.7s 0.25s ease both;
+}
+
+/* ─── PROGRESS ───────────────────────────────────────────── */
+.progress-area {
+  margin-bottom: 34px;
+  text-align: center;
+}
+
+.progress-label {
+  display: block;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  color: var(--softer);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 1.5px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0.65));
+  border-radius: 100px;
+  transition: width 0.5s var(--ease-smooth);
+  width: 0%;
+}
+
+/* ─── QUESTION ───────────────────────────────────────────── */
+.question-area {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.question-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 3.8vw, 1.6rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+/* Animation class toggled by JS */
+.q-enter {
+  animation: fadeInUp 0.38s ease both;
+}
+
+/* Text input */
+.survey-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.11);
+  border-radius: 14px;
+  padding: 15px 20px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.28s ease;
+  caret-color: rgba(255,255,255,0.55);
+}
+
+.survey-input::placeholder { color: var(--softer); }
+
+.survey-input:focus {
+  border-color: rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 0 22px rgba(255,255,255,0.04);
+}
+
+/* Pill buttons */
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.pill-btn {
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.04);
+  color: var(--soft);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.26s ease;
+}
+
+.pill-btn:hover {
+  border-color: rgba(255,255,255,0.32);
+  background: rgba(255,255,255,0.09);
+  color: var(--white);
+}
+
+.pill-btn.selected {
+  border-color: rgba(255,255,255,0.52);
+  background: rgba(255,255,255,0.13);
+  color: var(--white);
+  box-shadow: 0 0 14px rgba(255,255,255,0.07);
+}
+
+/* ─── NAVIGATION ─────────────────────────────────────────── */
+.survey-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 38px;
+  flex-wrap: wrap;
+}
+
+/* ─── SUCCESS STATE ──────────────────────────────────────── */
+.survey-success {
+  text-align: center;
+  padding: 64px 20px;
+  animation: fadeInUp 0.6s ease both;
+  max-width: 400px;
+}
+
+.success-star {
+  font-size: 2.8rem;
+  color: var(--soft);
+  margin-bottom: 22px;
+  display: block;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+.success-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 14px;
+  color: var(--white);
+}
+
+.success-msg { color: var(--soft); margin-bottom: 8px; }
+.success-sub { color: var(--softer); font-size: 0.88rem; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .survey-card { padding: 32px 20px; }
+  .survey-nav  { gap: 10px; }
+}

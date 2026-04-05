@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Dayana ✨</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/page1-intro.css" />
+</head>
+<body>
+
+  <!-- Background layers -->
+  <canvas id="starCanvas"></canvas>
+  <div id="dovesLayer"></div>
+  <div id="heartsLayer" class="hearts-layer"></div>
+
+  <!-- Page transition overlay -->
+  <div id="pageTransition"></div>
+
+  <!-- Music modal (shown once per session) -->
+  <div id="musicModal">
+    <div class="modal-box">
+      <p class="modal-stars-row">✦ &nbsp; ✧ &nbsp; ✦</p>
+      <h2 class="modal-title">A Little Surprise Awaits</h2>
+      <p class="modal-body">Would you like to play the background music for this surprise?</p>
+      <div class="modal-btns">
+        <button id="btnPlayMusic" class="btn btn-solid">Yes, play it &nbsp;♪</button>
+        <button id="btnSkipMusic" class="btn btn-ghost">No, continue silently</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden audio (present on every page for continuity) -->
+  <audio id="bgMusic" preload="auto"></audio>
+
+  <!-- Music toggle -->
+  <button id="musicToggle" aria-label="Toggle music">♪</button>
+
+  <!-- ══════════════════════════════════════════
+       PAGE 1 — INTRO CONTENT
+       ══════════════════════════════════════════ -->
+  <main class="intro-wrapper">
+
+    <span class="badge intro-badge">✦ &nbsp; a birthday surprise &nbsp; ✦</span>
+
+    <div class="intro-lines">
+      <p class="intro-line l1">I wanted to wish you normally…</p>
+      <p class="intro-line l2">but you are not a normal person to me.</p>
+
+      <div class="divider-line intro-divider"></div>
+
+      <p class="intro-line l3">So I made something a little different for you.</p>
+      <p class="intro-line l4">I think you'll enjoy these 3–4 minutes of my birthday gift, girl 💫</p>
+    </div>
+
+    <div class="bday-block">
+      <p class="bday-text">Happy Birthday, Dayana</p>
+      <span class="bday-emojis">🎂✨</span>
+    </div>
+
+    <!-- data-nav tells shared.js where to navigate -->
+    <button class="btn btn-glow intro-cta" data-nav="page2-survey.html">
+      Take Your Survey &nbsp;<span class="arrow">→</span>
+    </button>
+
+  </main>
+
+  <script src="js/shared.js"></script>
+  <script>
+    bootShared({ hearts: true, heartCount: 6 });
+  </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memories — Dayana ✨</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/Page4 photo.css" />
+</head>
+<body>
+
+  <!-- Background layers -->
+  <canvas id="starCanvas"></canvas>
+  <div id="dovesLayer"></div>
+  <div id="heartsLayer" class="hearts-layer"></div>
+
+  <!-- Page transition overlay -->
+  <div id="pageTransition"></div>
+
+  <!-- Music modal -->
+  <div id="musicModal">
+    <div class="modal-box">
+      <p class="modal-stars-row">✦ &nbsp; ✧ &nbsp; ✦</p>
+      <h2 class="modal-title">A Little Surprise Awaits</h2>
+      <p class="modal-body">Would you like to play the background music for this surprise?</p>
+      <div class="modal-btns">
+        <button id="btnPlayMusic" class="btn btn-solid">Yes, play it &nbsp;♪</button>
+        <button id="btnSkipMusic" class="btn btn-ghost">No, continue silently</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="assets/music/birthday-song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <button id="musicToggle" aria-label="Toggle music">♪</button>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE 4 — PHOTO / MEMORIES
+       ══════════════════════════════════════════════════════ -->
+
+  <main class="photo-wrapper">
+
+    <!-- ── HEADER ───────────────────────────────────────── -->
+    <header class="photo-header">
+      <span class="badge photo-badge">✦ &nbsp; captured moments &nbsp; ✦</span>
+      <h1 class="photo-title">A Few of your Favourite<br/>Memories </h1>
+      <p class="photo-subtitle">Some moments are too beautiful not to keep forever 🌙</p>
+    </header>
+
+    <!-- ── CINEMATIC SLIDESHOW ──────────────────────────── -->
+    <div class="slideshow-wrap" id="slideshowWrap">
+
+      <div class="slide-stage" id="slideStage">
+        <div class="slide-glow-ring"></div>
+
+        <div class="slide-frame" id="slideFrame">
+          <img src="" alt="Memory" id="slideImg" class="slide-img" />
+          <div class="slide-caption" id="slideCaption"></div>
+          <div class="slide-overlay-gradient"></div>
+        </div>
+
+        <button class="slide-arrow slide-prev" id="slidePrev" aria-label="Previous">&#8592;</button>
+        <button class="slide-arrow slide-next" id="slideNext" aria-label="Next">&#8594;</button>
+        <div class="slide-counter" id="slideCounter">1 / 1</div>
+      </div>
+
+      <!-- Thumbnail filmstrip -->
+      <div class="filmstrip" id="filmstrip"></div>
+
+    </div>
+
+    <!-- ── POLAROID SCATTER (decorative) ────────────────── -->
+    <div class="polaroid-scatter" id="polaroidScatter" aria-hidden="true"></div>
+
+    <!-- ── NEXT PAGE BUTTON ─────────────────────────────── -->
+    <button class="btn btn-glow photo-cta" data-nav="page5-video.html">
+      One Last Thing… &nbsp;<span class="cta-arrow">→</span>
+    </button>
+
+  </main>
+
+  <!-- ── LIGHTBOX ──────────────────────────────────────── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+      <img src="" alt="" id="lightboxImg" class="lightbox-img" />
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script>
+    /* ══════════════════════════════════════════════════════
+       PHOTOS CONFIG
+       ── HOW TO ADD PHOTOS ──────────────────────────────
+       1. Drop your images inside:  assets/img/
+       2. Add each file to the PHOTOS array below
+       3. Give each one a caption (shown on the slide)
+
+       Supported formats: .jpg  .jpeg  .png  .webp
+
+       Example entry:
+       { src: 'assets/img/photo1.jpg', caption: 'Your caption here 💫' }
+       ══════════════════════════════════════════════════════ */
+    const PHOTOS = [
+      { src: 'assets/img/pic1.jpeg',  caption: 'Every moment with you is a memory worth keeping 🌙' },
+      { src: 'assets/img/pic2.jpeg',  caption: 'You make ordinary days feel extraordinary ✨' },
+      { src: 'assets/img/pic3.jpeg',  caption: 'Smiles that light up every room you walk into 💫' },
+      { src: 'assets/img/pic4.jpeg',  caption: 'Some people just make life more beautiful 🌸' },
+      { src: 'assets/img/pic5.jpeg',  caption: 'These moments are forever 🎂' },
+      { src: 'assets/img/pic6.jpeg',  caption: 'Here\'s to you, Dayana. Happy Birthday 🎉' },
+      { src: 'assets/img/pic7.jpeg',  caption: 'Your caption…' },
+      { src: 'assets/img/pic8.jpeg',  caption: 'Your caption…' },
+        { src: 'assets/img/pic9.jpeg',  caption: 'Your caption…' },
+        { src: 'assets/img/pic10.jpeg', caption: 'Your caption…' },
+        { src: 'assets/img/pic11.jpeg', caption: 'Your caption…' },
+        { src: 'assets/img/pic12.jpeg', caption: 'Your caption…' },
+        { src: 'assets/img/pic13.jpeg', caption: 'Your caption…' },
+        { src: 'assets/img/pic14.jpeg', caption: 'Your caption…' },
+        { src: 'assets/img/pic15.jpeg', caption: 'Your caption…' },
+        { src: 'assets/img/pic16.jpeg', caption: 'Your caption…' },
+        { src: 'assets/img/pic17.jpeg', caption: 'Your caption…' },
+    
+    ];
+
+    /* ══════════════════════════════════════════════════════
+       PHOTO PAGE ENGINE  — no need to edit below this line
+       ══════════════════════════════════════════════════════ */
+    const PhotoPage = (() => {
+      let current   = 0;
+      let autoTimer = null;
+      const AUTO_MS = 4500;
+
+      const $ = id => document.getElementById(id);
+
+      /* ── Slideshow ────────────────────────────────────── */
+      function showSlide(index, dir) {
+        if (!PHOTOS.length) return;
+        current = ((index % PHOTOS.length) + PHOTOS.length) % PHOTOS.length;
+        const photo = PHOTOS[current];
+        const frame = $('slideFrame');
+
+        frame.classList.remove('slide-in-next','slide-in-prev','slide-out-next','slide-out-prev');
+
+        if (dir && dir !== 'none') {
+          frame.classList.add(dir === 'next' ? 'slide-out-next' : 'slide-out-prev');
+        }
+
+        const swap = () => {
+          $('slideImg').src         = photo.src;
+          $('slideImg').alt         = photo.caption || '';
+          $('slideCaption').textContent = photo.caption || '';
+          $('slideCounter').textContent = `${current + 1} / ${PHOTOS.length}`;
+          frame.classList.remove('slide-out-next','slide-out-prev');
+          frame.classList.add(dir === 'prev' ? 'slide-in-prev' : 'slide-in-next');
+          updateFilmstrip();
+        };
+
+        dir && dir !== 'none' ? setTimeout(swap, 260) : swap();
+      }
+
+      function next() { resetAuto(); showSlide(current + 1, 'next'); }
+      function prev() { resetAuto(); showSlide(current - 1, 'prev'); }
+
+      function startAuto() {
+        if (PHOTOS.length < 2) return;
+        autoTimer = setInterval(() => showSlide(current + 1, 'next'), AUTO_MS);
+      }
+      function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+      /* ── Filmstrip ────────────────────────────────────── */
+      function buildFilmstrip() {
+        const strip = $('filmstrip');
+        strip.innerHTML = '';
+        PHOTOS.forEach((p, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'thumb' + (i === 0 ? ' active' : '');
+          btn.setAttribute('aria-label', `Photo ${i + 1}`);
+          const img = document.createElement('img');
+          img.src     = p.src;
+          img.alt     = '';
+          img.loading = 'lazy';
+          btn.appendChild(img);
+          btn.addEventListener('click', () => { resetAuto(); showSlide(i, i >= current ? 'next' : 'prev'); });
+          strip.appendChild(btn);
+        });
+      }
+
+      function updateFilmstrip() {
+        $('filmstrip').querySelectorAll('.thumb').forEach((t, i) => {
+          t.classList.toggle('active', i === current);
+        });
+        $('filmstrip').querySelectorAll('.thumb')[current]
+          ?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      }
+
+      /* ── Polaroid scatter ─────────────────────────────── */
+      function buildScatter() {
+        const scatter = $('polaroidScatter');
+        if (!scatter || !PHOTOS.length) return;
+        scatter.innerHTML = '';
+
+        const configs = [
+          { top: '10%',  left: '-2%',  rot: -13 },
+          { top:  '8%',  right: '-1%', rot:   9 },
+          { top: '52%',  left: '-3%',  rot:  -7 },
+          { top: '56%',  right: '-2%', rot:  11 },
+        ];
+
+        const count = Math.min(configs.length, PHOTOS.length);
+        for (let i = 0; i < count; i++) {
+          const cfg   = configs[i];
+          const photo = PHOTOS[i];
+          const card  = document.createElement('div');
+          card.className = 'polaroid';
+
+          card.style.cssText = `
+            top:   ${cfg.top   || 'auto'};
+            left:  ${cfg.left  || 'auto'};
+            right: ${cfg.right || 'auto'};
+            --rot: ${cfg.rot}deg;
+            animation-delay: ${i * 0.18}s;
+          `;
+
+          card.innerHTML = `
+            <div class="polaroid-photo">
+              <img src="${photo.src}" alt="" loading="lazy" />
+            </div>
+            <div class="polaroid-label">✦</div>
+          `;
+
+          card.addEventListener('click', () => openLightbox(i));
+          scatter.appendChild(card);
+        }
+      }
+
+      /* ── Lightbox ─────────────────────────────────────── */
+      function openLightbox(index) {
+        const p = PHOTOS[index];
+        $('lightboxImg').src            = p.src;
+        $('lightboxCaption').textContent = p.caption || '';
+        $('lightbox').classList.add('open');
+        document.body.style.overflow    = 'hidden';
+      }
+
+      function closeLightbox() {
+        $('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      /* ── Events ───────────────────────────────────────── */
+      function bindEvents() {
+        $('slidePrev')?.addEventListener('click', prev);
+        $('slideNext')?.addEventListener('click', next);
+        $('slideImg')?.addEventListener('click', () => openLightbox(current));
+        $('lightboxClose')?.addEventListener('click', closeLightbox);
+        $('lightboxBackdrop')?.addEventListener('click', closeLightbox);
+
+        document.addEventListener('keydown', e => {
+          if ($('lightbox').classList.contains('open')) {
+            if (e.key === 'Escape') closeLightbox(); return;
+          }
+          if (e.key === 'ArrowRight') next();
+          if (e.key === 'ArrowLeft')  prev();
+        });
+
+        // Touch swipe
+        let tx = 0;
+        $('slideStage')?.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+        $('slideStage')?.addEventListener('touchend',   e => {
+          const dx = e.changedTouches[0].clientX - tx;
+          if (Math.abs(dx) > 48) dx < 0 ? next() : prev();
+        });
+      }
+
+      /* ── Boot ─────────────────────────────────────────── */
+      function init() {
+        if (!PHOTOS.length) return;
+        buildFilmstrip();
+        buildScatter();
+        showSlide(0, 'none');
+        bindEvents();
+        startAuto();
+      }
+
+      return { init };
+    })();
+
+    /* ── Start everything ── */
+    bootShared({ hearts: true, heartCount: 5 });
+    PhotoPage.init();
+  </script>
+</body>
+</html>

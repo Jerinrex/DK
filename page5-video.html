@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Last Thing — Dayana ✨</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/page4-video.css" />
+</head>
+<body>
+
+  <!-- Background layers -->
+  <canvas id="starCanvas"></canvas>
+  <div id="dovesLayer"></div>
+  <div id="heartsLayer" class="hearts-layer"></div>
+
+  <!-- Page transition overlay -->
+  <div id="pageTransition"></div>
+
+  <!-- Music modal -->
+  <div id="musicModal">
+    <div class="modal-box">
+      <p class="modal-stars-row">✦ &nbsp; ✧ &nbsp; ✦</p>
+      <h2 class="modal-title">A Little Surprise Awaits</h2>
+      <p class="modal-body">Would you like to play the background music for this surprise?</p>
+      <div class="modal-btns">
+        <button id="btnPlayMusic" class="btn btn-solid">Yes, play it &nbsp;♪</button>
+        <button id="btnSkipMusic" class="btn btn-ghost">No, continue silently</button>
+      </div>
+    </div>
+  </div>
+
+ <audio id="bgMusic" preload="auto"></audio>
+
+  <button id="musicToggle" aria-label="Toggle music">♪</button>
+
+  <!-- ══════════════════════════════════════════
+       PAGE 4 — FINAL VIDEO WISH
+       ══════════════════════════════════════════ -->
+  <main class="video-wrapper">
+
+    <span class="badge video-badge">✦ &nbsp; one last thing &nbsp; ✦</span>
+    <h1 class="video-title">One last thing for you…</h1>
+    <p class="video-subtitle">A little video message, just for you 🎬</p>
+
+    <!-- Video player -->
+    <div class="video-player-wrap">
+      <div class="video-glow-ring"></div>
+      <video
+        id="birthdayVideo"
+        controls
+        playsinline
+        preload="metadata"
+      >
+        <!--
+          ↓ PLACE YOUR VIDEO AT: assets/video/birthday-wish.mp4
+        -->
+        <source src="assets/video/birthday-wish.mp4" type="video/mp4" />
+        <p class="video-fallback">
+          Your browser doesn't support video.<br/>
+          Place your birthday video at <code>assets/video/birthday-wish.mp4</code>
+        </p>
+      </video>
+    </div>
+
+    <!-- Final emotional line -->
+    <p class="final-line">Hope this little surprise made you smile 💖</p>
+
+    <!-- Replay goes back to index.html -->
+    <button class="btn btn-glow replay-btn" data-nav="index.html">
+      ↺ &nbsp; Replay Surprise
+    </button>
+
+  </main>
+
+  <script src="js/shared.js"></script>
+  <script>
+    bootShared({ hearts: true, heartCount: 5 });
+
+    // Auto-play video when page loads (browser may block this — user can press play)
+    window.addEventListener('DOMContentLoaded', () => {
+      const v = document.getElementById('birthdayVideo');
+      if (v) v.play().catch(() => {});
+    });
+  </script>
+</body>
+</html>

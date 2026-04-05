@@ -1,0 +1,98 @@
+/* ============================================================
+   page1-intro.css — Styles specific to the Intro / Greeting page
+   Birthday Surprise · Monic Dayana
+   ============================================================ */
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.intro-wrapper {
+  position: relative;
+  z-index: 10;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px 80px;
+  gap: 0;
+}
+
+/* ─── BADGE ──────────────────────────────────────────────── */
+.intro-badge {
+  margin-bottom: 52px;
+  animation: fadeInUp 0.8s 0.3s ease both;
+}
+
+/* ─── LINES ──────────────────────────────────────────────── */
+.intro-lines {
+  margin-bottom: 52px;
+}
+
+.intro-line {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 4.4vw, 1.9rem);
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--soft);
+  margin-bottom: 4px;
+}
+
+.l1 { animation: fadeInUp 0.9s 0.5s  ease both; font-style: italic; }
+.l2 { animation: fadeInUp 0.9s 0.72s ease both; color: var(--white); font-weight: 400; }
+.l3 { animation: fadeInUp 0.9s 1.05s ease both; font-style: italic; margin-top: 4px; }
+.l4 {
+  animation: fadeInUp 0.9s 1.28s ease both;
+  font-size: clamp(0.95rem, 3vw, 1.28rem);
+  color: var(--softer);
+  margin-top: 6px;
+}
+
+.intro-divider {
+  margin: 22px auto;
+  animation: fadeIn 0.8s 0.95s ease both;
+}
+
+/* ─── BIRTHDAY HIGHLIGHT ─────────────────────────────────── */
+.bday-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+  animation: fadeInUp 0.9s 1.55s ease both;
+}
+
+.bday-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 6.5vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  text-shadow:
+    0 0 36px rgba(255, 255, 255, 0.22),
+    0 0 80px rgba(210, 190, 255, 0.12);
+}
+
+.bday-emojis {
+  font-size: clamp(1.4rem, 4.5vw, 2rem);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+/* ─── CTA BUTTON ─────────────────────────────────────────── */
+.intro-cta {
+  animation: fadeInUp 0.8s 1.85s ease both;
+}
+
+.intro-cta .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.intro-cta:hover .arrow { transform: translateX(5px); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .bday-block      { flex-direction: column; gap: 4px; }
+  .intro-wrapper   { padding: 36px 20px 72px; }
+}

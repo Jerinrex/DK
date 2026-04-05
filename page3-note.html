@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Letter for You — Dayana ✨</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/page3-note.css" />
+</head>
+<body>
+
+  <!-- Background layers -->
+  <canvas id="starCanvas"></canvas>
+  <div id="dovesLayer"></div>
+  <div id="heartsLayer" class="hearts-layer"></div>
+
+  <!-- Page transition overlay -->
+  <div id="pageTransition"></div>
+
+  <!-- Music modal -->
+  <div id="musicModal">
+    <div class="modal-box">
+      <p class="modal-stars-row">✦ &nbsp; ✧ &nbsp; ✦</p>
+      <h2 class="modal-title">A Little Surprise Awaits</h2>
+      <p class="modal-body">Would you like to play the background music for this surprise?</p>
+      <div class="modal-btns">
+        <button id="btnPlayMusic" class="btn btn-solid">Yes, play it &nbsp;♪</button>
+        <button id="btnSkipMusic" class="btn btn-ghost">No, continue silently</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ FIXED: proper audio source -->
+  <audio id="bgMusic" loop>
+    <source src="assets/music/birthday-song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <button id="musicToggle" aria-label="Toggle music">♪</button>
+
+  <!-- ══════════════════════════════════════════
+       PAGE 3 — BIRTHDAY NOTE
+       ══════════════════════════════════════════ -->
+  <main class="note-wrapper">
+
+    <span class="badge note-badge">✦ &nbsp; a letter for you &nbsp; ✦</span>
+
+    <!-- ── LETTER CARD ──────────────────────────────────────
+         EDIT YOUR BIRTHDAY MESSAGE HERE
+         Replace the <p> paragraphs inside .note-body
+         ──────────────────────────────────────────────────── -->
+    <article class="note-card">
+
+      <p class="note-greeting">Dear Dayana,</p>
+
+      <div class="note-body">
+        <!-- ↓↓↓ EDIT YOUR LETTER PARAGRAPHS BELOW ↓↓↓ -->
+        <p>
+          There are people who walk into your life quietly, and before you even realize it, they've become one of the most important parts of your world. You are one of those people — and I hope you know that.
+        </p>
+        <p>
+          Today is your day. Not just because the calendar says so, but because you deserve a full day — and honestly, a full year — dedicated to celebrating the kind of person you are. The kind that makes everything feel warmer just by being in the room.
+        </p>
+        <p>
+          I wanted this little surprise to tell you something simple but true: you matter. Not just in the grand, dramatic ways — but in all the quiet, everyday ones too. The way you laugh. The way you care. The way you show up. All of it.
+        </p>
+        <p>
+          So on this birthday, I hope you take a moment to look at yourself the way others see you — because what they see is truly something worth celebrating.
+        </p>
+        <p>
+          May this year bring you everything your heart has been quietly wishing for. May it be full of moments that take your breath away, people who love you deeply, and days that feel as beautiful as you make others feel.
+        </p>
+        <p>
+          Happy Birthday, Monic Dayana. You deserve all of this and so much more. 🌙✨
+        </p>
+        <!-- ↑↑↑ EDIT YOUR LETTER PARAGRAPHS ABOVE ↑↑↑ -->
+      </div>
+
+      <footer class="note-signature">
+        With so much love,<br />
+        <em>Your Birthday Surprise</em>
+      </footer>
+
+    </article>
+
+    <!-- ✅ FIXED: now goes to photo page, not video -->
+    <button class="btn btn-glow note-cta" data-nav="page4-photo.html">
+      One Last Thing… &nbsp;<span>→</span>
+    </button>
+
+  </main>
+
+  <script src="js/shared.js"></script>
+  <script>
+    bootShared({ hearts: true, heartCount: 5 });
+  </script>
+</body>
+</html>
