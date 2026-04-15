@@ -27,38 +27,87 @@
 
 const QUESTIONS = [
   {
-    id:          'q1',
-    label:       'What is your favorite food? 🍽️',
-    type:        'text',
-    placeholder: 'Tell me what you love to eat…',
+    id:      'q1',
+    label:   'What is your favorite food?(we dont provide chinese biryani😅) 🍽️',
+    type:    'pills',
+    options: ['curd', 'Biryani', 'chicken rice', 'parota'],
   },
   {
-    id:          'q2',
-    label:       'What is your favorite place? 🌍',
-    type:        'text',
-    placeholder: 'Anywhere in the world…',
+    id:      'q2',
+    label:   'What is your favorite place? 🌍',
+    type:    'pills',
+    options: ['Beach', 'Mountains', 'City', 'Nature'],
   },
   {
-    id:          'q3',
-    label:       'What is your favorite game? 🎮',
-    type:        'text',
-    placeholder: 'Any game you love playing…',
+    id:      'q3',
+    label:   'What is your favorite game? 🎮',
+    type:    'pills',
+    options: ['ludo', 'uno', 'rummy', 'carrom'],
   },
   {
-    id:          'q4',
-    label:       'What is your favorite color? 🎨',
-    type:        'text',
-    placeholder: 'The color that speaks to you…',
+    id:      'q4',
+    label:   'What is your favorite color? 🎨',
+    type:    'pills',
+    options: ['Blue', 'Pink', 'Green', 'Purple'],
   },
   {
     id:      'q5',
     label:   'What kind of vibe do you like most? ✨',
     type:    'pills',
-    options: ['Calm', 'Funny', 'Peaceful', 'Chaotic', 'Emotional'],
+    options: ['Calm', 'Funny', 'Peaceful', 'Chaotic'],
   },
+  {
+    id:      'q6',
+    label:   'Among your fam whom you prefer to disclose dardest things ? ✨',
+    type:    'pills',
+    options: ['mom', 'dad', 'brother', 'all '],
+  },
+  {
+  id: 'q7',
+  label: 'When something hurts you, what do you usually do? 💭',
+  type: 'pills',
+  options: ['Stay silent', 'Talk to someone', 'Cry alone', 'Ignore it'],
+},
+  {
+  id: 'q8',
+  label: 'What matters most in a person? ❤️',
+  type: 'pills',
+  options: ['Loyalty', 'Honesty', 'Humor', 'Care'],
+},
+{
+  id: 'q9',
+  label: 'Do you like deep conversations or simple chats more? 🌌',
+  type: 'pills',
+  options: ['Deep talks', 'Simple chats', 'Both', 'Depends on person'],
+},
+{
+  id: 'q10',
+  label: 'Would you give someone a second chance to know you better? 🌷',
+  type: 'pills',
+  options: ['Yes', 'Maybe', 'Depends', 'No'],
+},
+{
+  id: 'q11',
+  label: 'Do you ever regret that I came into your life since college days? 💭',
+  type: 'pills',
+  options: ['Never', 'Sometimes', 'Not at all', 'Prefer not to say'],
+},
+{
+  id: 'q20',
+  label: 'I already bought 3 gifts for your birthday… I couldn’t give them then, but one day they’ll reach you. Which 3 do you think they are? 🎁✨',
+  type: 'pills',  multiSelect: true,  options: [
+    'Dress',
+    'Jhumka',
+    'Shoe',
+    'Watch',
+    'Chocolate',
+    'Perfume',
+    'Handbag'
+  ],
+},
 
   // ── ADD YOUR NEW QUESTIONS BELOW THIS LINE ──────────────
-  // { id: 'q6', label: '…', type: 'text', placeholder: '…' },
+  // { id: 'q6', label: '…', type: 'pills', options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'] },
 ];
 
 /* ── Web3Forms access key ── */
@@ -110,15 +159,28 @@ const Survey = (() => {
     } else if (q.type === 'pills') {
       const wrap = document.createElement('div');
       wrap.className = 'pill-group';
+      const currentAnswers = Array.isArray(answers[q.id]) ? answers[q.id] : (answers[q.id] ? [answers[q.id]] : []);
       (q.options || []).forEach(opt => {
         const b = document.createElement('button');
         b.className   = 'pill-btn';
         b.textContent = opt;
-        if (answers[q.id] === opt) b.classList.add('selected');
+        if (currentAnswers.includes(opt)) b.classList.add('selected');
         b.addEventListener('click', () => {
-          wrap.querySelectorAll('.pill-btn').forEach(x => x.classList.remove('selected'));
-          b.classList.add('selected');
-          answers[q.id] = opt;
+          if (q.multiSelect) {
+            // Multiple selection mode
+            b.classList.toggle('selected');
+            if (b.classList.contains('selected')) {
+              if (!answers[q.id]) answers[q.id] = [];
+              answers[q.id].push(opt);
+            } else {
+              answers[q.id] = answers[q.id].filter(x => x !== opt);
+            }
+          } else {
+            // Single selection mode
+            wrap.querySelectorAll('.pill-btn').forEach(x => x.classList.remove('selected'));
+            b.classList.add('selected');
+            answers[q.id] = opt;
+          }
         });
         wrap.appendChild(b);
       });
@@ -158,9 +220,14 @@ const Survey = (() => {
     btn.disabled    = true;
 
     // Build readable message
-    const body = QUESTIONS.map((q, i) =>
-      `Q${i + 1}: ${q.label}\nAnswer: ${answers[q.id] || '(no answer)'}`
-    ).join('\n\n');
+    const body = QUESTIONS.map((q, i) => {
+      let answerText = answers[q.id] || '(no answer)';
+      // Format array answers nicely
+      if (Array.isArray(answerText)) {
+        answerText = answerText.join(', ');
+      }
+      return `Q${i + 1}: ${q.label}\nAnswer: ${answerText}`;
+    }).join('\n\n');
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', {

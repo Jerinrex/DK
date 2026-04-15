@@ -53,9 +53,9 @@
         preload="metadata"
       >
         <!--
-          ↓ PLACE YOUR VIDEO AT: assets/video/birthday-wish.mp4
+          ↓ PLACE YOUR VIDEO AT: assets/video/bdayclip.mp4
         -->
-        <source src="assets/video/birthday-wish.mp4" type="video/mp4" />
+        <source src="assets/video/bdayclip.mp4" type="video/mp4" />
         <p class="video-fallback">
           Your browser doesn't support video.<br/>
           Place your birthday video at <code>assets/video/birthday-wish.mp4</code>
@@ -80,7 +80,21 @@
     // Auto-play video when page loads (browser may block this — user can press play)
     window.addEventListener('DOMContentLoaded', () => {
       const v = document.getElementById('birthdayVideo');
-      if (v) v.play().catch(() => {});
+      const bgMusic = document.getElementById('bgMusic');
+      
+      if (v) {
+        // Pause background music when video starts playing
+        v.addEventListener('play', () => {
+          if (bgMusic) bgMusic.pause();
+        });
+        
+        // Resume background music when video ends
+        v.addEventListener('ended', () => {
+          if (bgMusic) bgMusic.play().catch(() => {});
+        });
+        
+        v.play().catch(() => {});
+      }
     });
   </script>
 </body>
