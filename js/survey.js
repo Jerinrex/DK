@@ -48,7 +48,7 @@ const QUESTIONS = [
     id:      'q4',
     label:   'What is your favorite color? 🎨',
     type:    'pills',
-    options: ['Blue', 'Pink', 'Green', 'Purple'],
+    options: ['Blue', 'Pink', 'Green', 'black'],
   },
   {
     id:      'q5',
@@ -58,7 +58,7 @@ const QUESTIONS = [
   },
   {
     id:      'q6',
-    label:   'Among your fam whom you prefer to disclose dardest things ? ✨',
+    label:   'Among your fam whom you prefer to disclose hardest things ? ✨',
     type:    'pills',
     options: ['mom', 'dad', 'brother', 'all '],
   },
@@ -216,7 +216,7 @@ const Survey = (() => {
     collectCurrent();
 
     const btn = getEl('btnSubmit');
-    btn.textContent = 'Sending… ✦';
+    btn.textContent = 'Submitting.. ✦';
     btn.disabled    = true;
 
     // Build readable message
